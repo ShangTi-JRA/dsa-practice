@@ -1,5 +1,23 @@
-build/
-node_modules/
-__pycache__/
-bin/
-obj/
+# Compiled object files
+*.out
+*.o
+*.obj
+
+# Precompsiled headers
+*.gch
+*.pch
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled static libraries
+*.a
+*.lib
+
+.vscode/
+
+# Backup/temporary files
+*~
+*.swp
