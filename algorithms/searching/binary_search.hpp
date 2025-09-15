@@ -46,23 +46,18 @@ int lower_bound(const std::vector<T>& arr, T target)
     // what if arr is empty
     T cantidate_position{ 0 };
     int low{ 0 };
-    int high = static_cast<int>(arr.size() - 1);
+    int high = static_cast<int>(arr.size());
 
-    while (low <= high)
+    while (low < high)
     {
         int mid = (low + high) / 2;
         T midValue = arr[mid];
 
-        if (midValue >= target)
-        {
-            cantidate_position = mid;
-            high = mid - 1;
-        }
-        else
-        {
+        if (midValue < target)
             low = mid + 1;
-        }
+        else
+            high = mid; // Keep mid because it could be an answer.
     }
 
-    return cantidate_position;
+    return low; // lower bound position
 }
