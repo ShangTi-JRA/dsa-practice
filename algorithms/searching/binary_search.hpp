@@ -37,3 +37,32 @@ int binary_search(const std::vector<T>& arr, T target)
 
     return -1;
 }
+
+// Returns the first ocurrence of the element that is >= target or array length if is not found.
+// Its like scanning through the array to find where the target would fit and keep the array sorted.
+template <typename T>
+int lower_bound(const std::vector<T>& arr, T target)
+{
+    // what if arr is empty
+    T cantidate_position{ 0 };
+    int low{ 0 };
+    int high = static_cast<int>(arr.size() - 1);
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        T midValue = arr[mid];
+
+        if (midValue >= target)
+        {
+            cantidate_position = mid;
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+
+    return cantidate_position;
+}

@@ -2,6 +2,7 @@
 *.out
 *.o
 *.obj
+*.exe
 
 # Precompsiled headers
 *.gch
