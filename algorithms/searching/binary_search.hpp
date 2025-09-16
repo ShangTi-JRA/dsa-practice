@@ -14,16 +14,16 @@ int binary_search(const std::vector<T>& arr, T target)
     {
         // #1 Decision: The middle point
         int mid = (low + high) / 2;
-        T midValue = arr[mid];
+        T mid_value = arr[mid];
 
         // #2 Decision: The comparison
-        if (midValue == target)
+        if (mid_value == target)
         {
             return mid;
         }
 
         // #3 Decision: The discard.
-        if (midValue > target)
+        if (mid_value > target)
         {
             // Target is to the left.
             high = mid - 1;
@@ -53,20 +53,39 @@ int lower_bound(const std::vector<T>& arr, T target)
     while (low < high)
     {
         int mid = (low + high) / 2;
-        T midValue = arr[mid];
+        T mid_value = arr[mid];
 
-        if (midValue < target)
+        if (mid_value < target)
             low = mid + 1;
         else
             high = mid; // Keep mid because it could be an answer.
     }
 
-    return low; // lower bound position
+    return low; // Could be low or high.
 }
 
 // Returns the last position where the element could be inserted in the array while keeping it sorted.
-//template <typename T>
-//int upper_bound(const std::vector<T>& arr, T target)
-//{
- //   ;
-//}
+template <typename T>
+int upper_bound(const std::vector<T>& arr, T target)
+{
+    int low = 0;
+    int high = static_cast<int>(arr.size());
+
+    while (low < high)
+    {
+        int mid = (low + high) / 2;
+        T mid_value = arr[mid];
+
+        // if mid_value == target: new low = mid + 1.
+        // if mid_value < target: new low = mid + 1.
+        // So, if mid_value <= target: new low = mid + 1.
+        // if mid_value > target: new high = mid.
+        
+        if (mid_value <= target)
+            low = mid + 1;
+        else
+            high = mid;
+    }
+
+    return high; // or low (they are equal here).
+}
