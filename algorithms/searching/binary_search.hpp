@@ -1,7 +1,12 @@
 #pragma once
 #include <vector>
 
+// ===============================
+// STANDARD BINARY SEARCH
+// ===============================
+
 // Checks if the element is present in the array.
+// Returns the index if found, -1 otherwise.
 template <typename T>
 int binary_search(const std::vector<T>& arr, T target)
 {
@@ -12,17 +17,14 @@ int binary_search(const std::vector<T>& arr, T target)
 
     while (low <= high)
     {
-        // #1 Decision: The middle point
         int mid = (low + high) / 2;
         T mid_value = arr[mid];
 
-        // #2 Decision: The comparison
         if (mid_value == target)
         {
             return mid;
         }
 
-        // #3 Decision: The discard.
         if (mid_value > target)
         {
             // Target is to the left.
@@ -40,10 +42,11 @@ int binary_search(const std::vector<T>& arr, T target)
 
 
 // ================================================
-// SEARCHING ALGORITHMS TO COUNT IN RANGES
+// BOUNDS SEARCH
 // ================================================
 
-// Returns the first position where the element could be inserted in the array while keeping it sorted.
+// Returns the first index where target could be inserted
+// while keeping the array sorted.
 template <typename T>
 int lower_bound(const std::vector<T>& arr, T target)
 {
@@ -56,15 +59,20 @@ int lower_bound(const std::vector<T>& arr, T target)
         T mid_value = arr[mid];
 
         if (mid_value < target)
+        {
             low = mid + 1;
+        }
         else
+        {
             high = mid; // Keep mid because it could be an answer.
+        }
     }
 
     return low; // Could be low or high.
 }
 
-// Returns the last position where the element could be inserted in the array while keeping it sorted.
+// Returns the first index where an element > target could be inserted
+// (i.e. the position *after* the last target).
 template <typename T>
 int upper_bound(const std::vector<T>& arr, T target)
 {
@@ -75,17 +83,34 @@ int upper_bound(const std::vector<T>& arr, T target)
     {
         int mid = (low + high) / 2;
         T mid_value = arr[mid];
-
-        // if mid_value == target: new low = mid + 1.
-        // if mid_value < target: new low = mid + 1.
-        // So, if mid_value <= target: new low = mid + 1.
-        // if mid_value > target: new high = mid.
         
         if (mid_value <= target)
+        {
             low = mid + 1;
+        }
         else
+        {
             high = mid;
+        }
     }
 
     return high; // or low (they are equal here).
+}
+
+// ================================================
+// RANGE COUNTING HELPERS
+// ================================================
+
+// Counts how many times `target` occurs in `arr`.
+template <typename T>
+int count_occurrences(const std::vector<T>& arr, T target)
+{
+    return upper_bound(arr, target) - lower_bound(arr, target);
+}
+
+// Counts how many elements fall within the closed interval [L, R].
+template <typename T>
+int count_in_range(const std::vector<T>& arr, T L, T R)
+{
+    return upper_bound(arr, R) - lower_bound(arr, L);
 }
