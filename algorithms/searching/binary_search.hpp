@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-// Returns the index of the target in the array or -1 if is not found. 
+// Checks if the element is present in the array.
 template <typename T>
 int binary_search(const std::vector<T>& arr, T target)
 {
@@ -38,13 +38,15 @@ int binary_search(const std::vector<T>& arr, T target)
     return -1;
 }
 
-// Returns the first ocurrence of the element that is >= target or array length if is not found.
-// Its like scanning through the array to find where the target would fit and keep the array sorted.
+
+// ================================================
+// SEARCHING ALGORITHMS TO COUNT IN RANGES
+// ================================================
+
+// Returns the first position where the element could be inserted in the array while keeping it sorted.
 template <typename T>
 int lower_bound(const std::vector<T>& arr, T target)
 {
-    // what if arr is empty
-    T cantidate_position{ 0 };
     int low{ 0 };
     int high = static_cast<int>(arr.size());
 
@@ -61,3 +63,10 @@ int lower_bound(const std::vector<T>& arr, T target)
 
     return low; // lower bound position
 }
+
+// Returns the last position where the element could be inserted in the array while keeping it sorted.
+//template <typename T>
+//int upper_bound(const std::vector<T>& arr, T target)
+//{
+ //   ;
+//}
